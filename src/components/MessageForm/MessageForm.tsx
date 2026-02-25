@@ -3,7 +3,7 @@ import type { Message } from '../../types/Message';
 import './MessageForm.css';
 
 interface MessageFormProps {
-    onSubmit: (message: Omit<Message, 'id' | 'date'>) => void;
+    onSubmit: (message: Omit<Message, 'id' | 'created_at'>) => void;
 }
 
 function MessageForm({ onSubmit }: MessageFormProps) {

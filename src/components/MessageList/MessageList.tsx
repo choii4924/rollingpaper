@@ -3,6 +3,7 @@ import './MessageList.css';
 
 interface MessageListProps {
     messages: Message[];
+    loading?: boolean;
 }
 
 const CARD_COLORS = [
@@ -16,14 +17,19 @@ const CARD_COLORS = [
     '#fce4f3',
 ];
 
-function MessageList({ messages }: MessageListProps) {
+function MessageList({ messages, loading = false }: MessageListProps) {
     return (
         <section className="message-list" id="message-list">
             <h2 className="message-list__title">
                 받은 메시지{' '}
                 <span className="message-list__count">({messages.length})</span>
             </h2>
-            {messages.length === 0 ? (
+            {loading ? (
+                <div className="message-list__empty">
+                    <span className="message-list__empty-icon">⏳</span>
+                    <p>메시지를 불러오는 중...</p>
+                </div>
+            ) : messages.length === 0 ? (
                 <div className="message-list__empty">
                     <span className="message-list__empty-icon">💌</span>
                     <p>아직 받은 메시지가 없습니다.</p>
@@ -66,7 +72,7 @@ function MessageList({ messages }: MessageListProps) {
                                 <span className="message-card__author">{msg.author}</span>
                             </div>
                             <p className="message-card__content">{msg.content}</p>
-                            <time className="message-card__date">{msg.date}</time>
+                            <time className="message-card__date">{msg.created_at.slice(0, 10)}</time>
                         </article>
                     ))}
                 </div>
